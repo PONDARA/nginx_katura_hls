@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  nginx_kaltura:
+    build: ./
+    # restart: always
+    tty: true
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.service:/lib/systemd/system/nginx.service
+
+    ports:
+      - 43:80
+    environment:
+      - PROXY_S3_END_POINT=https://fsgw.sabay.com/reality-stone-dev/
+      # - PROXY_AUTH=http://node:3000/auth
+      - PROXY_AUTH=https://one-gateway.master.sabay.com/api/v1/purchase/validate
+      - AWS_ACCESS_KEY=YVDA7KC31040BHQCZGDS
+      - AWS_SECRET_KEY=HhqAbJfAXxNKHIfkufk0yGW7F4cLTAsfMeipTsSk
+      - AWS_S3_BUCKET=reality-stone-dev
+      - S3_SERVER=fsgw.sabay.com
+      - SERVICE_CODE=sabay_one
+      - ITEM_TYPE=Movies
+
+      - SPACE_STONE_BUCKET=space-stone-dev
+      - SPACE_STONE_PROXY_S3_END_POINT=https://fsgw.sabay.com/space-stone-dev/
